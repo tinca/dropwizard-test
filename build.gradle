@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     compile 'io.dropwizard:dropwizard-core:0.8.2'
+    compile 'io.dropwizard:dropwizard-views-freemarker:0.8.2'
 
     testCompile 'io.dropwizard:dropwizard-testing:0.8.4'
     testCompile 'org.mock-server:mockserver-netty:3.10.1'

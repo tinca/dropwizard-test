@@ -3,6 +3,8 @@ package hu.tinca.dwtest;
 import com.codahale.metrics.annotation.Timed;
 import hu.tinca.dwtest.parser.ParserException;
 import hu.tinca.dwtest.parser.XmlParserUtil;
+import hu.tinca.dwtest.view.ArtistView;
+import hu.tinca.dwtest.view.ArtistsView;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -39,11 +41,13 @@ public class LastFmResource {
     @GET
     @Timed
     @Path("/artist/{artistName}")
-    public Artists findSimilarArtists(@PathParam("artistName") String artistName) {
+    @Produces(MediaType.TEXT_HTML)
+    public ArtistsView findSimilarArtists(@PathParam("artistName") String artistName) {
         try {
             URI uri = createLastFmURI(ARTIST_SIMILAR, artistName);
             String content = readUrlContent(uri);
-            return XmlParserUtil.parseArtists(content);
+            Artists a = XmlParserUtil.parseArtists(content);
+            return new ArtistsView(a);
         }
         catch (IOException | ParserException e) {
             throw new WebApplicationException(422);
@@ -74,11 +78,13 @@ public class LastFmResource {
     @GET
     @Timed
     @Path("/bio/{artistName}")
-    public Artist findArtistBio(@PathParam("artistName") String artistName) {
+    @Produces(MediaType.TEXT_HTML)
+    public ArtistView findArtistBio(@PathParam("artistName") String artistName) {
         try {
             URI uri = createLastFmURI(ARTIST, artistName);
             String content = readUrlContent(uri);
-            return XmlParserUtil.parseArtist(content);
+            Artist a = XmlParserUtil.parseArtist(content);
+            return new ArtistView(a);
         }
         catch (IOException | ParserException e) {
             LOG.log(Level.SEVERE, "", e);

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.dropwizard:dropwizard-views-freemarker:0.8.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard/dropwizard-views-freemarker/0.8.2/5726aa37eb367bf91fc15760ab5d1785678c32ed/dropwizard-views-freemarker-0.8.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.dropwizard/dropwizard-views-freemarker/0.8.2/3216cbc694061fe6faf0762d18ca4a8210305561/dropwizard-views-freemarker-0.8.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,7 +1,9 @@
 package hu.tinca.dwtest;
 
 import io.dropwizard.Application;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 /**
  *
@@ -10,6 +12,10 @@ public class LastFmApplication extends Application<LastFmConfiguration> {
 
     public static void main(String[] args) throws Exception {
         new LastFmApplication().run(args);
+    }
+
+    public void initialize(Bootstrap<LastFmConfiguration> bootstrap) {
+        bootstrap.addBundle(new ViewBundle<LastFmConfiguration>());
     }
 
     @Override
