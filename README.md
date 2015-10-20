@@ -7,10 +7,11 @@ The project builds with gradle (used with 2.7). After clone build the project fr
 gradle shadowJar
 ```
 
-then run:
+then run the fatjar:
 ```sh
-java -jar build/libs/dwtest-SNAPSHOT-1.0.jar server src/main/resources/config.yaml
+java -jar build/libs/dwtest-1.0-SNAPSHOT-all.jar server src/main/resources/config.yaml
 ```
+If behind a proxy use vm parameters: -Dhttp.proxyHost=.. -Dhttp.proxyPort=..
 
 and access the following from a browser:<BR>
 http://localhost:8080/artist/"an artist name"<BR>
