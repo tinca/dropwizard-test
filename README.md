@@ -2,7 +2,7 @@
 Exploring Dropwizard technology
 ===============================
 
-The project builds with gradle (2.7+ certainly works). After clone build the project from its root:
+The project builds with gradle (2.7+ certainly works). Build the project from its root:
 ```sh
 gradle shadowJar
 ```
