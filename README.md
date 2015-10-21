@@ -13,7 +13,7 @@ java -jar build/libs/dwtest-1.0-SNAPSHOT-all.jar server src/main/resources/confi
 ```
 If behind a proxy use vm parameters: -Dhttp.proxyHost=.. -Dhttp.proxyPort=..
 
-and access the following from a browser:<BR>
+and access the following links from a browser:<BR>
 http://localhost:8080/artist/"an artist name"<BR>
 http://localhost:8080/bio/an artist name"
 <P>
