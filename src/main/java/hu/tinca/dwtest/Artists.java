@@ -18,7 +18,7 @@ public class Artists {
 
 
     public List<Artist> getArtists() {
-        // TODO: copy
+        // TODO: copy or iterator
         return artists;
     }
 }
