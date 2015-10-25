@@ -7,16 +7,22 @@ The project builds with gradle (2.7+). If gradle is not installed run gradlew to
 gradle shadowJar
 ```
 
-then run the fatjar:
+First create database:
+```sh
+java -jar build/libs/dwtest-1.0-SNAPSHOT-all.jar db migrate src/main/resources/config.yaml
+```
+
+Then run the fatjar:
 ```sh
 java -jar build/libs/dwtest-1.0-SNAPSHOT-all.jar server src/main/resources/config.yaml
 ```
-If behind a proxy use vm parameters: -Dhttp.proxyHost=.. -Dhttp.proxyPort=..
 
-and access the following links from a browser:<BR>
+Access the following links from a browser:<BR>
 ```
 http://localhost:8080/artist/"an artist name"<BR>
-http://localhost:8080/bio/an artist name"
+http://localhost:8080/bio/an artist name"<BR>
+http://localhost:8080/artistView/"an artist name"<BR>
+http://localhost:8080/bioView/an artist name"
 ```
 <P>
 "an artist name" example: Jaco%20Pastorius
