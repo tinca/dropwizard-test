@@ -48,15 +48,16 @@ public class LastFmResource {
     @UnitOfWork
     public Artists getSimilarArtists(@PathParam("artistName") String artistName) {
         try {
-            Artists a = cache.getArtists(artistName);
-            if (a != null) {
-                return a;
-            }
+            // TODO: reconstruction of the whole state
+//            Artists a = cache.getArtists(artistName);
+//            if (a != null) {
+//                return a;
+//            }
 
             URI uri = createLastFmURI(ARTIST_SIMILAR, artistName);
             String content = readUrlContent(uri);
-            a = XmlParserUtil.parseArtists(content);
-            cache.put(a);
+            Artists a = XmlParserUtil.parseArtists(content);
+//            cache.put(a);
             return a;
         } catch (IOException | ParserException e) {
             throw new WebApplicationException(422);
@@ -67,6 +68,7 @@ public class LastFmResource {
     @Timed
     @Path("/artistView/{artistName}")
     @Produces(MediaType.TEXT_HTML)
+    @UnitOfWork
     public ArtistsView getSimilarArtistsView(@PathParam("artistName") String artistName) {
         return new ArtistsView(getSimilarArtists(artistName));
     }
@@ -119,6 +121,7 @@ public class LastFmResource {
     @Timed
     @Path("/bioView/{artistName}")
     @Produces(MediaType.TEXT_HTML)
+    @UnitOfWork
     public ArtistView getArtistBioView(@PathParam("artistName") String artistName) {
         return new ArtistView(getArtistBio(artistName));
     }

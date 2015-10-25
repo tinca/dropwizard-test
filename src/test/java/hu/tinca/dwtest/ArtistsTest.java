@@ -25,12 +25,14 @@ public class ArtistsTest {
     @BeforeClass
     public void setUp() {
         mapper = Jackson.newObjectMapper();
-        expected = "{\"templateArtist\":\"Cher\",\"artists\":[{\"name\":\"1\",\"bio\":{\"published\":\"published\",\"summary\":\"summary\",\"content\":\"content\"}},{\"name\":\"2\",\"bio\":null}]}";
+        expected = "{\"templateArtist\":\"Cher\",\"artists\":[\"1\",\"2\"]}";
     }
 
     @Test
     public void serialize() throws Exception {
-        Artists a = new Artists("Cher", Arrays.asList("1", "2"));
+        Artists a = new Artists();
+        a.setTemplateArtist("Cher");
+        a.setArtists(Arrays.asList("1", "2"));
         String actual = writeAsString(a);
 
         assert actual.equals(expected);

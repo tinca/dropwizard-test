@@ -72,7 +72,10 @@ public class XmlParserUtil {
             artists.add(artistName);
         }
 
-        return new Artists(artistTemplate, artists);
+        Artists a = new Artists();
+        a.setTemplateArtist(artistTemplate);
+        a.setArtists(artists);
+        return a;
     }
 
     private static Artist getArtist(Document d) throws ParserException {
@@ -88,7 +91,8 @@ public class XmlParserUtil {
         }
 
         if (artistNodes.getLength() != 1) {
-            return new Artist("No artist", null);
+            Artist a = new Artist();
+            a.setName("No artist");
         }
 
         String name = getTextContent(findSubNode("name", artistNodes.item(0)));
@@ -97,7 +101,9 @@ public class XmlParserUtil {
         String sum = getTextContent(findSubNode("summary", bioNode));
         String cont = getTextContent(findSubNode("content", bioNode));
         Bio bio = new Bio(pub, sum, cont);
-        Artist artists = new Artist(name, bio);
+        Artist artists = new Artist();
+        artists.setName(name);
+        artists.setBio(bio);
 
         return artists;
     }

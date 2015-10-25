@@ -23,19 +23,24 @@ public class Artists {
     @Column(name = "similarName")
     private List<String> artists;
 
-    public Artists() {}
 
-    @JsonCreator
-    public Artists(@JsonProperty("templateArtist") String templateArtist, @JsonProperty("artists") List<String> artists) {
-        this.templateArtist = templateArtist;
-        this.artists = artists;
-    }
-
+    @JsonProperty("templateArtist")
     public String getTemplateArtist() {
         return templateArtist;
     }
 
+    @JsonProperty("artists")
     public List<String> getArtists() {
         return artists;
+    }
+
+    @JsonProperty("templateArtist")
+    public void setTemplateArtist(String templateArtist) {
+        this.templateArtist = templateArtist;
+    }
+
+    @JsonProperty("artists")
+    public void setArtists(List<String> artists) {
+        this.artists = artists;
     }
 }

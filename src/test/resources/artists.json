@@ -1,1 +1,1 @@
-{"templateArtist":"Cher","artists":[{"name":"1","bio":{"published":"published","summary":"summary","content":"content"}},{"name":"2","bio":null}]}
+{"templateArtist":"Cher","artists":["1","2"]}

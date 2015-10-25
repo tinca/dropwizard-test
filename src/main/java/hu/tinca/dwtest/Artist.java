@@ -1,6 +1,5 @@
 package hu.tinca.dwtest;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -16,24 +15,23 @@ public class Artist {
     @Embedded
     private Bio bio;
 
-    public Artist() {}
-
-    public Artist(@JsonProperty("name") String name) {
-        this.name = name;
-    }
-
-    @JsonCreator
-    public Artist(@JsonProperty("name") String name, @JsonProperty("bio") Bio bio) {
-        this.name = name;
-        this.bio = bio;
-    }
-
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("bio")
     public Bio getBio() {
         return bio;
     }
 
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @JsonProperty("bio")
+    public void setBio(Bio bio) {
+        this.bio = bio;
+    }
 }
