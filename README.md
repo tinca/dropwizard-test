@@ -20,9 +20,9 @@ java -jar build/libs/dwtest-1.0-SNAPSHOT-all.jar server src/main/resources/confi
 Access the following links from a browser:<BR>
 ```
 http://localhost:8080/artist/"an artist name"
-http://localhost:8080/bio/an artist name"
+http://localhost:8080/bio/"an artist name"
 http://localhost:8080/artistView/"an artist name"
-http://localhost:8080/bioView/an artist name"
+http://localhost:8080/bioView/"an artist name"
 ```
 <P>
 "an artist name" example: Jaco%20Pastorius
