@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="" type="hu.tinca.dwtest.view.ArtistView" -->
+<#-- @ftlvariable artist="" type="hu.tinca.dwtest.view.ArtistView" -->
 <html>
     <body>
         <h1>Artist information</h1>

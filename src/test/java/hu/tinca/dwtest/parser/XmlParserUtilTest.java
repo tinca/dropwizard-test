@@ -21,7 +21,8 @@ public class XmlParserUtilTest {
         Artists artists = XmlParserUtil.parseArtists(xml);
 
         assert artists != null;
-        assert artists.getArtists().get(0).getName().equals("Sonny and Cher");
+        assert "Cher".equals(artists.getTemplateArtist());
+        assert artists.getArtists().get(0).equals("Sonny and Cher");
     }
 
     @Test
@@ -30,6 +31,7 @@ public class XmlParserUtilTest {
         Artists artists = XmlParserUtil.parseArtists(xml);
 
         assert artists != null;
+        assert "Jaco Pastorius".equals(artists.getTemplateArtist());
         assert artists.getArtists().size() == 100;
     }
 

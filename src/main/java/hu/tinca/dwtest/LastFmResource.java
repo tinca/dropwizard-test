@@ -5,6 +5,7 @@ import hu.tinca.dwtest.parser.ParserException;
 import hu.tinca.dwtest.parser.XmlParserUtil;
 import hu.tinca.dwtest.view.ArtistView;
 import hu.tinca.dwtest.view.ArtistsView;
+import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -31,27 +32,43 @@ public class LastFmResource {
     private final String lastFmURI;
     private final String user;
     private final String apiKey;
+    private final Cache cache;
 
-    public LastFmResource(String lastFmURI, String user, String apiKey) {
+    public LastFmResource(String lastFmURI, String user, String apiKey, Cache cache) {
         this.lastFmURI = lastFmURI;
         this.user = user;
         this.apiKey = apiKey;
+        this.cache = cache;
     }
 
     @GET
     @Timed
     @Path("/artist/{artistName}")
-    @Produces(MediaType.TEXT_HTML)
-    public ArtistsView findSimilarArtists(@PathParam("artistName") String artistName) {
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public Artists getSimilarArtists(@PathParam("artistName") String artistName) {
         try {
+            Artists a = cache.getArtists(artistName);
+            if (a != null) {
+                return a;
+            }
+
             URI uri = createLastFmURI(ARTIST_SIMILAR, artistName);
             String content = readUrlContent(uri);
-            Artists a = XmlParserUtil.parseArtists(content);
-            return new ArtistsView(a);
-        }
-        catch (IOException | ParserException e) {
+            a = XmlParserUtil.parseArtists(content);
+            cache.put(a);
+            return a;
+        } catch (IOException | ParserException e) {
             throw new WebApplicationException(422);
         }
+    }
+
+    @GET
+    @Timed
+    @Path("/artistView/{artistName}")
+    @Produces(MediaType.TEXT_HTML)
+    public ArtistsView getSimilarArtistsView(@PathParam("artistName") String artistName) {
+        return new ArtistsView(getSimilarArtists(artistName));
     }
 
     // http://www.last.fm/api/rest
@@ -78,18 +95,32 @@ public class LastFmResource {
     @GET
     @Timed
     @Path("/bio/{artistName}")
-    @Produces(MediaType.TEXT_HTML)
-    public ArtistView findArtistBio(@PathParam("artistName") String artistName) {
+    @Produces(MediaType.APPLICATION_JSON)
+    @UnitOfWork
+    public Artist getArtistBio(@PathParam("artistName") String artistName) {
         try {
+            Artist a = cache.getArtist(artistName);
+            if (a != null) {
+                return a;
+            }
+
             URI uri = createLastFmURI(ARTIST, artistName);
             String content = readUrlContent(uri);
-            Artist a = XmlParserUtil.parseArtist(content);
-            return new ArtistView(a);
-        }
-        catch (IOException | ParserException e) {
+            a = XmlParserUtil.parseArtist(content);
+            cache.put(a);
+            return a;
+        } catch (IOException | ParserException e) {
             LOG.log(Level.SEVERE, "", e);
             throw new WebApplicationException(422);
         }
+    }
+
+    @GET
+    @Timed
+    @Path("/bioView/{artistName}")
+    @Produces(MediaType.TEXT_HTML)
+    public ArtistView getArtistBioView(@PathParam("artistName") String artistName) {
+        return new ArtistView(getArtistBio(artistName));
     }
 
 }

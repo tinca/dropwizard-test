@@ -17,7 +17,7 @@ public class ArtistsView extends View {
         this.artists = artists;
     }
 
-    public List<Artist> getArtists() {
+    public List<String> getArtists() {
         return artists.getArtists();
     }
 }

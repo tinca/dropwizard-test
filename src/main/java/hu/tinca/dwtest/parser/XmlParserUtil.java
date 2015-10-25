@@ -49,11 +49,17 @@ public class XmlParserUtil {
     }
 
     private static Artists getArtists(Document d) throws ParserException {
-        List<Artist> artists = new ArrayList<>();
+        List<String> artists = new ArrayList<>();
         XPath xPathEvaluator = XPathFactory.newInstance().newXPath();
+
         NodeList artistNameNodes;
+        String artistTemplate;
 
         try {
+            XPathExpression templateNameExpr = xPathEvaluator.compile("lfm/similarartists");
+            NodeList templateNameNodes = (NodeList) templateNameExpr.evaluate(d, XPathConstants.NODESET);
+            artistTemplate = templateNameNodes.item(0).getAttributes().getNamedItem("artist").getNodeValue();
+
             XPathExpression nameExpr = xPathEvaluator.compile("lfm/similarartists/artist/name");
             artistNameNodes = (NodeList) nameExpr.evaluate(d, XPathConstants.NODESET);
         }
@@ -63,10 +69,10 @@ public class XmlParserUtil {
 
         for (int i = 0; i < artistNameNodes.getLength(); i++) {
             String artistName = artistNameNodes.item(i).getFirstChild().getNodeValue();
-            artists.add(new Artist(artistName));
+            artists.add(artistName);
         }
 
-        return new Artists(artists);
+        return new Artists(artistTemplate, artists);
     }
 
     private static Artist getArtist(Document d) throws ParserException {
